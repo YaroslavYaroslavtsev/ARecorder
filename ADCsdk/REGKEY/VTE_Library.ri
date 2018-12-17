@@ -1,0 +1,3 @@
+#define CompanyNameLIB "Virtual Tools LTD"
+#define ProductNameLIB "Base library"
+#define VersionNameLIB "1.0"

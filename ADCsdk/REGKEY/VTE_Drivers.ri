@@ -1,0 +1,3 @@
+#define CompanyNameDRV "Virtual Tools LTD"
+#define ProductNameDRV "Drivers"
+#define VersionNameDRV "1.0"

@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/tr">
+        <file alias="qt_ru.qm">resource/tr/qtbase_ru.qm</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="app.png">resource/images/Digital_Electronics_Icon.png</file>
+        <file alias="crusher.png">resource/images/дробилка.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="usb.ico">resource/icons/Device-USB-icon.ico</file>
+        <file alias="adc.ico">resource/icons/adc.ico</file>
+        <file alias="record.ico">resource/icons/record.ico</file>
+        <file alias="stop.ico">resource/icons/stop.ico</file>
+        <file alias="play.ico">resource/icons/play.ico</file>
+    </qresource>
+</RCC>
