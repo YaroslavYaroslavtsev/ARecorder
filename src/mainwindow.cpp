@@ -12,10 +12,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-   // ui->en_ch_10->setVisible(false);
-   // ui->tb_ch10->setVisible(false);
-   // ui->pv_label_10->setVisible(false);
-   // ui->lineEdit_10->setVisible(false);
+    ui->en_ch_10->setVisible(false);
+    ui->tb_ch10->setVisible(false);
+    ui->pv_label_10->setVisible(false);
+    ui->lineEdit_10->setVisible(false);
 
     // Clock in status bar
     tmr500 = new QTimer(this);
@@ -82,9 +82,9 @@ MainWindow::MainWindow(QWidget *parent) :
     curv[8] = new QwtPlotCurve(QString(trUtf8("Угол 1")));
     curv[8]->setRenderHint(QwtPlotItem::RenderAntialiased);
     curv[8]->setPen(QPen(0x55aaff));
-    curv[9] = new QwtPlotCurve(QString(trUtf8("Угол 2")));
-    curv[9]->setRenderHint(QwtPlotItem::RenderAntialiased);
-    curv[9]->setPen(QPen(Qt::black));
+    //curv[9] = new QwtPlotCurve(QString(trUtf8("Угол 2")));
+    //curv[9]->setRenderHint(QwtPlotItem::RenderAntialiased);
+   // curv[9]->setPen(QPen(Qt::black));
     
     timescale = new TimeScaleDraw(QTime::currentTime());
     plot->setAxisScaleDraw(QwtPlot::xBottom,timescale);
@@ -106,8 +106,8 @@ MainWindow::MainWindow(QWidget *parent) :
     curv[7]->attach(plot);
     curv[8]->setData(dataModel->channel(8));
     curv[8]->attach(plot);
-    curv[9]->setData(dataModel->channel(9));
-    curv[9]->attach(plot);
+    //curv[9]->setData(dataModel->channel(9));
+    //curv[9]->attach(plot);
     
     plot->replot();
 
