@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->bt_run,SIGNAL(clicked()),crush,SLOT(run()));
     connect(ui->bt_stop,SIGNAL(clicked()),crush,SLOT(stop()));
 
-    dataModel = new GraphDataModel(SLOT_SIZE*10);
+    dataModel = new GraphDataModel((ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT)*10);
 
     // update crusher status on mode changed
     connect(crush,SIGNAL(modeChanged(Crusher::mode)),SLOT(sl_modeChanged(Crusher::mode)));

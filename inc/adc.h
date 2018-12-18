@@ -8,7 +8,7 @@
 
 #define ADC_BLOCK_SIZE (1024*10)
 #define ADC_CHANNEL_COUNT (16)
-#define SLOT_SIZE (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT/sizeof(float))
+#define SLOT_SIZE (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT)
 
 #define     GAIN    1   // вместо 1 можно поставить 1, 10, 100, 200
 #define     FREQ_STREAM         32000.0

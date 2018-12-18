@@ -5,6 +5,7 @@ GraphDataModel::GraphDataModel(size_t size,QObject *parent) : QObject(parent)
 {
     RecoderData* rd;
     for (int i = 0; i < ADC_CHANNEL_COUNT; i++){
+        // recorder data on 6400 counts
         rd = new RecoderData(&dataSlots, size);
         rd->setChanell(i);
         channels.append(rd);
@@ -31,12 +32,15 @@ RecoderData* GraphDataModel::channel(int ch)
 
 
 // update data from adc
+// *data    float data[10240]
+// size 10240
 void GraphDataModel::updateData(float *data, unsigned int size)
 {
-  //  qDebug()<< QString::number((uint)data);
+    //qDebug()<< QString::number(size);
     float* mydata;
-    mydata = (float*) malloc(size);
-    memcpy(mydata,data,size);
+    mydata = (float*) malloc(size * sizeof(float));
+    memcpy(mydata,data,size* sizeof(float));
+    // in data slot 640 samples 16
     dataSlots.enqueue(mydata);
     timeSlots.enqueue(QTime::currentTime());
     if (dataSlots.size()>10) {

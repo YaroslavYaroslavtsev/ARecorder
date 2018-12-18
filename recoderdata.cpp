@@ -14,13 +14,15 @@ RecoderData::~RecoderData()
 size_t RecoderData::size() const
 {
     Q_CHECK_PTR(m_blockSlots);
-    return m_blockSlots->size() * SLOT_SIZE;
+    return m_blockSlots->size() * (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT);
 }
 
 QPointF RecoderData::sample(size_t i) const
 {
-    int calcslot = i / SLOT_SIZE;
-    int calcsample = i % SLOT_SIZE;
+    // smaple(0...6399)
+    // calc slot number
+    int calcslot = i / (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT);
+    int calcsample = i % (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT);
     Q_CHECK_PTR(m_blockSlots);
     if (!(calcslot<m_blockSlots->size()))
         return QPointF(i,0);

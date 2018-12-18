@@ -19,7 +19,7 @@ ExpFilter::~ExpFilter()
 void ExpFilter::filter(float *data, unsigned int len)
 {
     if(len % m_channel > 0) return;
-    int samples = len / m_channel / sizeof(float);
+    int samples = len / m_channel ;
     for (int j = 0; j < samples; j++) {
         for(int i = 0; i < m_channel; i++) {
             float newdata;

@@ -1,4 +1,5 @@
 #include "crusher.h"
+#include <QDebug>
 
 Crusher* Crusher::classAddress = NULL;
 
@@ -10,10 +11,14 @@ Crusher::Crusher(QObject *parent) : QObject(parent),m_run(false),m_rec(false),m_
      filter = new ExpFilter(16,this);
      connect(this,SIGNAL(dataRecived(float*,unsigned int)),filter,SLOT(filter(float*,unsigned int)));
      connect(filter,SIGNAL(dataChanged(float*,unsigned int)),SLOT(filterComplete(float*,uint)));
-    // prepare Simulator
+
+     //connect(this,SIGNAL(dataRecived(float*,unsigned int)),SLOT(filterComplete(float*,uint)));
+
+
+     // prepare Simulator
     simulator = new QTimer(this);
     connect(simulator,SIGNAL(timeout()),SLOT(simulateData()));
-    simdata = (float*)malloc(ADC_BLOCK_SIZE);
+    simdata = (float*)malloc(ADC_BLOCK_SIZE * sizeof(float));
     // program parameters
     m_parameters = new ParamModel(this);
     loadParameters();
@@ -171,7 +176,7 @@ void Crusher::run()
     if(m_run) return;
     if(m_simul)
     {
-        simulator->start(500);
+        simulator->start(300);
          emit modeChanged(Sim);
     }
     else
@@ -206,12 +211,12 @@ bool Crusher::isError()
 
 void Crusher::simulateData()
 {
-   Q_CHECK_PTR(simdata);
-    for(int i=0;i<SLOT_SIZE;i++)
+    Q_CHECK_PTR(simdata);
+    for(int i=0;i<(ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT);i++)
     {
         for(int j=0;j<ADC_CHANNEL_COUNT;j++){
             int ptr = i*ADC_CHANNEL_COUNT + j;
-            Q_ASSERT(ptr < SLOT_SIZE*ADC_CHANNEL_COUNT);
+            Q_ASSERT(ptr < ADC_BLOCK_SIZE);
            // simdata[ptr]= (sim_val+j)%10;
             simdata[ptr]= sin(sim_val+(j*0.50))*5+5;
             if(j==0)
@@ -222,19 +227,18 @@ void Crusher::simulateData()
                 simdata[ptr]+= noise;
             }
         }
-        sim_val+=0.01 ;
+        sim_val+=0.003 ;
     }
     emit dataRecived(simdata,ADC_BLOCK_SIZE);
 }
 
 void Crusher::filterComplete(float * data, unsigned int size)
 {
-    emit dataChanged(data,size);
     if(  m_rec &&  m_hFile != INVALID_HANDLE_VALUE )
     {
-        SaveBlock(m_hFile, data, size);
+        SaveBlock(m_hFile, data, size * 4);
     }
-
+    emit dataChanged(data,size);
 }
 
 void Crusher::emitDataChanged(float *data, unsigned int size)
