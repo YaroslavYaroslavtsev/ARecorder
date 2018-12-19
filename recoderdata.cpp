@@ -24,7 +24,7 @@ QPointF RecoderData::sample(size_t i) const
     int calcslot = i / (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT);
     int calcsample = i % (ADC_BLOCK_SIZE/ADC_CHANNEL_COUNT);
     Q_CHECK_PTR(m_blockSlots);
-    if (!(calcslot<m_blockSlots->size()))
+    if(!(calcslot < m_blockSlots->size()))
         return QPointF(i,0);
     float* data = m_blockSlots->at(calcslot);
     Q_CHECK_PTR(data);
@@ -44,7 +44,7 @@ int RecoderData::chanell() const
 
 void RecoderData::setChanell(int chanell)
 {
-    if (chanell < 0 || chanell > (ADC_CHANNEL_COUNT-1))
+    if(chanell < 0 || chanell > (ADC_CHANNEL_COUNT-1))
         return;
     m_chanell = chanell;
 }

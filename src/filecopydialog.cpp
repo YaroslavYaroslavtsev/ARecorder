@@ -63,11 +63,11 @@ void FileCopyDialog::sl_update()
 
 void FileCopyDialog::sl_copy()
 {
-    if (ui->lv_files->selectionModel()->selectedIndexes().count() == 0) {
+    if(ui->lv_files->selectionModel()->selectedIndexes().count() == 0) {
         QMessageBox::information(this,trUtf8("Информация"),trUtf8("Не выбран файл для копирования"),QMessageBox::Ok);
         return;
     }
-    if (ui->lv_disk->selectionModel()->selectedIndexes().count() == 0) {
+    if(ui->lv_disk->selectionModel()->selectedIndexes().count() == 0) {
         QMessageBox::information(this,trUtf8("Информация"),trUtf8("Не выбран диск"),QMessageBox::Ok);
         return;
     }
@@ -80,9 +80,9 @@ void FileCopyDialog::sl_copy()
     qDebug() << dstdir + srcfile;
     if(QFile::exists(dstdir + srcfile) || QFile::exists(dstdir + cfgfile)) {
         int result = QMessageBox::question(this, trUtf8("Подтверждение"),trUtf8("Файл существует!Перезаписать?"),QMessageBox::Yes,QMessageBox::No);
-        if (result == QMessageBox::No)
+        if(result == QMessageBox::No)
             return;
-        if (!QFile::remove(dstdir + srcfile) && !QFile::remove(dstdir + cfgfile)) {
+        if(!QFile::remove(dstdir + srcfile) && !QFile::remove(dstdir + cfgfile)) {
             QMessageBox::information(this,trUtf8("Информация"),trUtf8("Ошибка в процессе удаления"),QMessageBox::Ok);
             return;
         }
@@ -100,7 +100,7 @@ void FileCopyDialog::sl_copy()
 
 void FileCopyDialog::sl_delete()
 {
-    if (ui->lv_files->selectionModel()->selectedIndexes().count() == 0) {
+    if(ui->lv_files->selectionModel()->selectedIndexes().count() == 0) {
         QMessageBox::information(this,trUtf8("Информация"),trUtf8("Не выбран файл для удаления"),QMessageBox::Ok);
         return;
     }
@@ -111,10 +111,10 @@ void FileCopyDialog::sl_delete()
     qDebug() << srcdir + cfgfile;
     int result;
     result = QMessageBox::question(this, trUtf8("Подтверждение"),trUtf8("Удалить файл?"),QMessageBox::Yes,QMessageBox::No);
-    if (result == QMessageBox::No)
+    if(result == QMessageBox::No)
         return;
-    if (QFile::remove(srcdir + srcfile)) {
-        if (QFile::exists(srcdir + cfgfile))
+    if(QFile::remove(srcdir + srcfile)) {
+        if(QFile::exists(srcdir + cfgfile))
             QFile::remove(srcdir + cfgfile);
         msgBox->setText(trUtf8("Файл удален"));
         msgBox->show();
@@ -153,12 +153,6 @@ void FileCopyDialog::sl_content()
 
 void FileCopyDialog::sl_contentFilter()
 {
-     QPushButton* bt = qobject_cast<QPushButton*>(sender());
-     if (bt != NULL) {
-//    if(bt->objectName()=="bt_all") cont->setNameFilters(QStringList());
-//    if(bt->objectName()=="bt_csv2") cont->setNameFilters(csvfiles);
-//    if(bt->objectName()=="bt_alf2") cont->setNameFilters(alfcfgfiles);
-     }
 }
 
 void FileCopyDialog::setHideAddPanel(bool hide)
@@ -172,8 +166,4 @@ void FileCopyDialog::setHideAddPanel(bool hide)
 bool FileCopyDialog::isVisibleAddPanel()
 {
     return  ui->lv_content->isVisible();
-//    &&
-//    ui->bt_all->isVisible()&&
-//    ui->bt_csv->isVisible()&&
-//    ui->bt_alf->isVisible();
 }

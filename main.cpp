@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     a.setApplicationName("Экспериментальная дробилка");
     a.setOrganizationName("Электротехнические системы Сибирь");
     QTranslator *qt_translator = new QTranslator;
-    if (qt_translator->load(":tr/qt_ru.qm"))
+    if(qt_translator->load(":tr/qt_ru.qm"))
         a.installTranslator(qt_translator);
     MainWindow w;
     w.show();

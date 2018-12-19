@@ -37,8 +37,8 @@ private slots:
     void on_bt_savefile_clicked();
     void on_act_aboutQt_triggered();
     void on_act_koef_triggered();
-    void on_tb_filtr_textChanged(const QString &arg1);
-    void on_horizontalSlider_valueChanged(int value);
+    void on_tb_filtr_textChanged(const QString&);
+    void on_horizontalSlider_valueChanged(int);
     void on_act_about_triggered();
     void on_actionTeamViewer_triggered();
 
@@ -46,7 +46,7 @@ private:
     void closeEvent(QCloseEvent*);
     void saveSettings();
     void loadSettings();
-    float getAbsoluteData(float *data,int channel);
+    float getAbsoluteData(float*,int);
 
     Ui::MainWindow *ui;
     QTimer *tmr500;
@@ -57,7 +57,7 @@ private:
     QTime tm;
     QwtPlot *plot;
     QwtPlotGrid *grid;
-    QwtPlotCurve* curv[16];
+    QwtPlotCurve *curv[16];
     GraphDataModel *dataModel;
     TimeScaleDraw *timescale;
 };

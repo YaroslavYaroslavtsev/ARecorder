@@ -8,7 +8,7 @@
 class RecoderData : public QwtSeriesData<QPointF>
 {
 public:
-    RecoderData(QList<float *> *value,size_t size);
+    RecoderData(QList<float*> *value,size_t size);
     ~RecoderData();
     size_t size() const;
     QPointF sample(size_t i) const;

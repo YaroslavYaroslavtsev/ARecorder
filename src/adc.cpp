@@ -21,19 +21,19 @@ ADC::~ADC()
 
 int ADC::init(ADCParametersSTREAMCallBack cb)
 {
-    if (pADC == 0) {
+    if(pADC == 0) {
         qDebug() << "ERROR - Object not created!";
         return ERR_LOAD;
     }
 
 //  Номера устройств начинаются с 1. Захват устройства с номером 1.
-    if (pADC->Setup(1, 0, 0, 0) <= 0) {
+    if(pADC->Setup(1, 0, 0, 0) <= 0) {
         qDebug() << "ERROR - Setup not ready!";
         return ERR_SETUP;
     }
 
     int result;
-    for (int i = 0; i < ADC_CHANNEL_COUNT; i++) {
+    for(int i = 0; i < ADC_CHANNEL_COUNT; i++) {
         Channels[i] =  i;
         Gains[i] = GAIN + (GAIN << 16);
     }
@@ -60,9 +60,9 @@ int ADC::init(ADCParametersSTREAMCallBack cb)
     ps.m_vCallBackSize         = DIM(mvolt);                    // Размер буфера данных
 
     //  Если возвращаемое значение больше 0, то все прошло учпешно.
-    if (pADC != 0)
+    if(pADC != 0)
         result = pADC->Init(ADC_INIT_MODE_INIT, &ps, 0);
-    if (result <= 0)
+    if(result <= 0)
         return ERR_INIT;
     m_ready = true;
     return 0;
@@ -70,7 +70,7 @@ int ADC::init(ADCParametersSTREAMCallBack cb)
 
 void ADC::start()
 {
-    if (!m_ready)
+    if(!m_ready)
         return;
 
     pADC->Start();
@@ -78,14 +78,14 @@ void ADC::start()
 
 void ADC::stop()
 {
-    if (!m_ready)
+    if(!m_ready)
         return;
     pADC->Stop();
 }
 
 int ADC::getSerial()
 {
-    if (!m_ready)
+    if(!m_ready)
         return 0;
     //  Получение серийного номера устройства
     unsigned serN = 0;

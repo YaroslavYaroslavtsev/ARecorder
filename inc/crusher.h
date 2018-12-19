@@ -47,8 +47,8 @@ public:
     void applyParameters();
 
 signals:
-    void dataRecived(float*,unsigned int);
-    void dataChanged(float*,unsigned int);
+    void dataRecived(float*, unsigned int);
+    void dataChanged(float*, unsigned int);
     void modeChanged(Crusher::mode);
     void statusChanged(const QString&);
 
@@ -60,7 +60,7 @@ public slots:
 
 private slots:
     void simulateData();
-    void filterComplete(float*,unsigned int);
+    void filterComplete(float*, unsigned int);
 
 private:
     explicit Crusher(QObject *parent = 0);

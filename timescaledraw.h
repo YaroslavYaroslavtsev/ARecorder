@@ -9,6 +9,7 @@ public:
     TimeScaleDraw(const QTime &base):
         baseTime(base) {
     }
+
     virtual QwtText label(double v) const {
         QTime upTime = baseTime.addMSecs((int)v * 0.5);
         return upTime.toString("HH.mm.ss\n    zzz");
