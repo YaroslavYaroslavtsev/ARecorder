@@ -18,10 +18,10 @@ public:
     QTime getTime() const;
 
 signals:
-    void dataRecieved(float*,unsigned int);
+    void dataRecieved(float*, unsigned int);
 
 public slots:
-    void updateData(float*,unsigned int);
+    void updateData(float*, unsigned int);
     void reset();
 
 private:

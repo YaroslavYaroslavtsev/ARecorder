@@ -17,12 +17,12 @@ class ParamModel : public QAbstractTableModel
     Q_OBJECT
 public:
     explicit ParamModel(QObject *parent = 0);
-    int rowCount(const QModelIndex &parent) const;
-    int columnCount(const QModelIndex &parent) const;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
-    QVariant headerData(int section, Qt::Orientation orientation, int role) const;
-    bool setData(const QModelIndex &index, const QVariant &value, int role);
+    int rowCount(const QModelIndex&) const;
+    int columnCount(const QModelIndex&) const;
+    QVariant data(const QModelIndex&, int role = Qt::DisplayRole) const;
+    Qt::ItemFlags flags(const QModelIndex&) const;
+    QVariant headerData(int, Qt::Orientation, int) const;
+    bool setData(const QModelIndex&, const QVariant&, int);
 
 public slots:
     bool submit();

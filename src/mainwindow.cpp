@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // main crusher object
     crush = Crusher::instance();
-    if (crush->isError())
+    if(crush->isError())
     {
         QMessageBox::information(this,"Аппаратная ошибка",crush->getLastError(),QMessageBox::Ok);
     }
@@ -139,10 +139,10 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::enableChannel(bool en)
 {
     QCheckBox* cb = qobject_cast<QCheckBox*>(sender());
-    if (cb != NULL) {
+    if(cb != NULL) {
         bool ok;
         int num = cb->objectName().right(1).toInt(&ok);
-        if (ok)
+        if(ok)
             curv[num - 1]->setVisible(en);
         plot->replot();
     }
@@ -154,10 +154,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, trUtf8("Завершение работы"), trUtf8("Вы уверены?"),
                                   QMessageBox::Yes|QMessageBox::No);
-    if (reply == QMessageBox::No) {
+    if(reply == QMessageBox::No) {
         event->ignore();
     } else {
-        if (saveOnExit) {
+        if(saveOnExit) {
             saveSettings();
             crush->saveParameters();
         }
@@ -197,7 +197,7 @@ MainWindow::~MainWindow()
     int i;
     delete ui;
     delete grid;
-    for (i = 0; i < 10; i++) {
+    for(i = 0; i < 10; i++) {
         Q_CHECK_PTR(curv[i]);
         delete curv[i];
     }
@@ -215,7 +215,7 @@ void MainWindow::sl_modeChanged(Crusher::mode mode)
         dataModel->reset();
         plot->replot();
         ui->lb_rectime->setVisible(false);
-        if (defaultfile.exists()) {
+        if(defaultfile.exists()) {
             showStatus("Запись файла конфигурации " + crush->filename() + ".sreccfg");
             QFile::copy(QApplication::applicationDirPath() + "/default.sreccfg", crush->fullFilename()+ ".sreccfg");
         }
@@ -228,7 +228,7 @@ void MainWindow::sl_modeChanged(Crusher::mode mode)
             conv->setKoef(crush->getParameters()->index(i,PARAM_KOEF).data().toFloat(),i+1);
             conv->setOffs(crush->getParameters()->index(i,PARAM_OFFSET).data().toFloat(),i+1);
         }
-        if (!conv->convert("./" + crush->fullFilename()+".alf")) {
+        if(!conv->convert("./" + crush->fullFilename()+".alf")) {
             showStatus("");
             showStatus("Экспорт CSV завершен");
         } else {
@@ -288,7 +288,7 @@ void MainWindow::sl_modeChanged(Crusher::mode mode)
 
 void MainWindow::sl_convprogress(int progress)
 {
-   if (progress % 10 == 0) {
+   if(progress % 10 == 0) {
        ui->tb_info->setPlainText(ui->tb_info->toPlainText() + ".");
        QApplication::processEvents();
    }
@@ -299,7 +299,7 @@ void MainWindow::timeUpdate()
     // update datetime
     clock->setText(QDateTime::currentDateTime().toString("dddd dd/MM/yyyy HH:mm:ss"));
     // update record time
-    if (crush->isRec()) {
+    if(crush->isRec()) {
         QTime nn;
         int ms = tm.elapsed();
         nn =QTime(0,0,0).addMSecs(ms);
@@ -315,7 +315,7 @@ void MainWindow::showStatus(const QString &msg)
 
 float MainWindow::getAbsoluteData(float *data,int channel)
 {
-    if (channel < 0 || channel >= ADC_CHANNEL_COUNT)
+    if(channel < 0 || channel >= ADC_CHANNEL_COUNT)
         return qSNaN();
     bool koef_ok,off_ok;
     float *dt = data + channel;
@@ -326,11 +326,11 @@ float MainWindow::getAbsoluteData(float *data,int channel)
 
 void MainWindow::sl_dataUpdate(float *data, size_t size)
 {
-    if (size > 16 && (crush->isRun() || crush->isRec())) {
-        for (int i = 0; i < 10; i++) {
+    if(size > 16 && (crush->isRun() || crush->isRec())) {
+        for(int i = 0; i < 10; i++) {
             float val= getAbsoluteData(data,i);
             QLineEdit *obj = ui->gb_actualData->findChild<QLineEdit*>("tb_ch"+QString::number(i+1));
-            if (obj != NULL)
+            if(obj != NULL)
                 obj->setText(val == val ? QString::number(val,'f',3):"----");
         }
         timescale = new TimeScaleDraw(dataModel->getTime());
@@ -380,7 +380,7 @@ void MainWindow::on_act_koef_triggered()
     SetupKoefDialog *koef = new SetupKoefDialog(crush->getParameters(),this);
     koef->setAttribute(Qt::WA_DeleteOnClose);
     koef->setModal(true);
-    if (QDialog::Accepted == koef->exec()) {
+    if(QDialog::Accepted == koef->exec()) {
         crush->saveParameters();
         loadSettings();
     }
@@ -393,7 +393,7 @@ void MainWindow::on_bt_keyb_clicked()
 
 void MainWindow::on_act_about_triggered()
 {
-    QMessageBox::information(this,tr("О программе"),tr("ПО Экспериментальной дробилки\nВерсия 1.03.01"));
+    QMessageBox::information(this,tr("О программе"),tr("ПО Экспериментальной дробилки\nВерсия 1.04.00"));
 }
 
 void MainWindow::on_actionTeamViewer_triggered()

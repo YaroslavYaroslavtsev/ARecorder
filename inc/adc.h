@@ -19,8 +19,6 @@
 #define ERR_INIT -3
 #define ERR_NODIR -4
 
-
-
 class ADC: public QObject
 {
     Q_OBJECT
@@ -41,9 +39,7 @@ private:
     float       mvolt[ADC_BLOCK_SIZE];
     bool m_ready;
     ADCParametersSTREAM ps;
-
-
-  //
 };
+
 int __stdcall  ADCCallBack(void* pObj, void*& pData, int size, int mode);
 #endif // ADC_H

@@ -8,22 +8,20 @@
 #define CSV_OPEN -2
 #define CSV_NODIR -3
 
-
-
 class CSV : public QObject
 {
     Q_OBJECT
 public:
     explicit CSV(QObject *parent = 0);
     int convert(const QString&);
-    void setName(const QString &name, int col);
-    QString name(int col);
-    void setKoef(float koef, int col);
-    float koef(int col);
-    void setOffs(float off, int col);
-    float offs(int col);
-    void setEnable(bool en, int col);
-    bool isEnable(int col);
+    void setName(const QString&, int);
+    QString name(int);
+    void setKoef(float, int);
+    float koef(int);
+    void setOffs(float, int);
+    float offs(int);
+    void setEnable(bool, int);
+    bool isEnable(int);
 
 signals:
     void progressChanged(int);

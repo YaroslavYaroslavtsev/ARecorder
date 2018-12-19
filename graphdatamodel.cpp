@@ -4,7 +4,7 @@
 GraphDataModel::GraphDataModel(size_t size,QObject *parent) : QObject(parent)
 {
     RecoderData* rd;
-    for (int i = 0; i < ADC_CHANNEL_COUNT; i++){
+    for(int i = 0; i < ADC_CHANNEL_COUNT; i++){
         // recorder data on 6400 counts
         rd = new RecoderData(&dataSlots, size);
         rd->setChanell(i);
@@ -14,9 +14,9 @@ GraphDataModel::GraphDataModel(size_t size,QObject *parent) : QObject(parent)
 
 GraphDataModel::~GraphDataModel()
 {
-    for (int i = 0; i < channels.length(); i++)
+    for(int i = 0; i < channels.length(); i++)
         free(channels.at(i));
-    for (int i = 0; i < dataSlots.length(); i++) {
+    for(int i = 0; i < dataSlots.length(); i++) {
         Q_CHECK_PTR(dataSlots.head());
         free(dataSlots.dequeue());
     }
@@ -24,7 +24,7 @@ GraphDataModel::~GraphDataModel()
 
 RecoderData* GraphDataModel::channel(int ch)
 {
-    if (ch >= 0 && ch <= channels.length())
+    if(ch >= 0 && ch <= channels.length())
         return channels.at(ch);
     else
         return NULL;
@@ -43,7 +43,7 @@ void GraphDataModel::updateData(float *data, unsigned int size)
     // in data slot 640 samples 16
     dataSlots.enqueue(mydata);
     timeSlots.enqueue(QTime::currentTime());
-    if (dataSlots.size()>10) {
+    if(dataSlots.size()>10) {
         timeSlots.dequeue();
         float* olddata = dataSlots.dequeue();
         Q_CHECK_PTR(olddata);
@@ -55,7 +55,7 @@ void GraphDataModel::updateData(float *data, unsigned int size)
 void GraphDataModel::reset()
 {
     timeSlots.clear();
-    for (int i = 0; i < dataSlots.length(); i++) {
+    for(int i = 0; i < dataSlots.length(); i++) {
         Q_CHECK_PTR(dataSlots.head());
         free(dataSlots.dequeue());
     }

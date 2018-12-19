@@ -3,7 +3,7 @@
 ParamModel::ParamModel(QObject *parent)
 {
     Q_UNUSED(parent);
-    for (int i = 0; i < ADC_CHANNEL_COUNT; i++) {
+    for(int i = 0; i < ADC_CHANNEL_COUNT; i++) {
         enable[i] = true;
         name[i] = QString("Channel %1").arg(i + 1) ;
         koef[i] = 1.0;
@@ -32,11 +32,11 @@ int ParamModel::columnCount(const QModelIndex &parent) const
 QVariant ParamModel::data(const QModelIndex &index, int role) const
 {
     // incorrect column or row
-    if (index.column() > (PARAMS - 1) || index.row() >= ADC_CHANNEL_COUNT)
+    if(index.column() > (PARAMS - 1) || index.row() >= ADC_CHANNEL_COUNT)
         return QVariant();
-    if (role == Qt::DisplayRole || role == Qt::EditRole) {
+    if(role == Qt::DisplayRole || role == Qt::EditRole) {
         QString unswer;
-        switch (index.column()) {
+        switch(index.column()) {
             case 0:
                 unswer = enable[index.row()] ? trUtf8("Включен") : trUtf8("Отключен");
                 break;
@@ -60,24 +60,24 @@ QVariant ParamModel::data(const QModelIndex &index, int role) const
         return QVariant(unswer);
     }
 
-    if (role == Qt::CheckStateRole && index.column() == 0)
-        return QVariant(enable[index.row()]? Qt::Checked:Qt::Unchecked);
+    if(role == Qt::CheckStateRole && index.column() == 0)
+        return QVariant(enable[index.row()] ? Qt::Checked : Qt::Unchecked);
     return QVariant();
 }
 
 Qt::ItemFlags ParamModel::flags(const QModelIndex &index) const
 {
-    if (index.column() == 0)
-        return Qt::ItemIsEditable|Qt::ItemIsEnabled|Qt::ItemIsUserCheckable;
-    return Qt::ItemIsEditable|Qt::ItemIsEnabled;
+    if(index.column() == 0)
+        return Qt::ItemIsEditable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable;
+    return Qt::ItemIsEditable | Qt::ItemIsEnabled;
 }
 
 QVariant ParamModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    if (role != Qt::DisplayRole)
+    if(role != Qt::DisplayRole)
         return QVariant();
-    if (orientation == Qt::Horizontal) {
-        switch (section) {
+    if(orientation == Qt::Horizontal) {
+        switch(section) {
             case 0:
                 return QVariant(trUtf8("Состояние"));
                 break;
@@ -101,8 +101,8 @@ QVariant ParamModel::headerData(int section, Qt::Orientation orientation, int ro
                 break;
             }
         }
-    if (orientation == Qt::Vertical) {
-        if (section >= ADC_CHANNEL_COUNT)
+    if(orientation == Qt::Vertical) {
+        if(section >= ADC_CHANNEL_COUNT)
             return QVariant();
         return QVariant(QString(trUtf8("Канал %1")).arg(section+1));
     }
@@ -114,11 +114,11 @@ bool ParamModel::setData(const QModelIndex &index, const QVariant &value, int ro
     Q_UNUSED(role);
     bool res;
     double val;
-    if (index.column() < 0 || index.column() > (PARAMS - 1))
+    if(index.column() < 0 || index.column() > (PARAMS - 1))
         return false;
-    if (index.row() < 0 || index.row() >= ADC_CHANNEL_COUNT)
+    if(index.row() < 0 || index.row() >= ADC_CHANNEL_COUNT)
         return false;
-    switch (index.column()) {
+    switch(index.column()) {
         case 0:
             switch(value.type()) {
                 case QVariant::Bool :
@@ -135,12 +135,12 @@ bool ParamModel::setData(const QModelIndex &index, const QVariant &value, int ro
             break;
         case 2:
             val = value.toDouble(&res);
-            if (res)
+            if(res)
                 koef[index.row()] = val;
             break;
         case 3:
             val = value.toDouble(&res);
-            if (res)
+            if(res)
                 offs[index.row()] = val;
             break;
         case 5:
@@ -148,7 +148,7 @@ bool ParamModel::setData(const QModelIndex &index, const QVariant &value, int ro
             break;
         case 4:
             val = value.toDouble(&res);
-            if (res)
+            if(res)
                 alpha[index.row()] = val;
             break;
         }
